@@ -1,0 +1,129 @@
+{
+  "transaction": {
+    "id": "dec_987654321",
+    "reference_id": "payroll_4821",
+    "amount": 25000.0,
+    "currency": "INR",
+    "transfer_type": "IMPS",
+    "beneficiary_id": "ben_sal_9042",
+    "created_at": "2026-08-18T10:31:02Z"
+  },
+  "events": [
+    {
+      "id": "evt_init_001",
+      "transaction_id": "dec_987654321",
+      "event_type": "PAYOUT_INITIATED",
+      "source": "API_CLIENT",
+      "status": "INITIATED",
+      "occurred_at": "2026-08-18T10:31:02.100Z",
+      "received_at": "2026-08-18T10:31:02.120Z",
+      "correlation_id": "req_payroll_4821_v1",
+      "sequence": 1,
+      "payload": {
+        "client_id": "client_fintech_corp",
+        "beneficiary_account": "••••••••5678",
+        "ifsc": "HDFC0001234",
+        "transfer_amount": 25000.0,
+        "purpose": "SALARY_PAYROLL"
+      }
+    },
+    {
+      "id": "evt_acc_002",
+      "transaction_id": "dec_987654321",
+      "event_type": "PAYOUT_ACCEPTED",
+      "source": "DECENTRO_GATEWAY",
+      "status": "PENDING",
+      "occurred_at": "2026-08-18T10:31:03.450Z",
+      "received_at": "2026-08-18T10:31:03.470Z",
+      "correlation_id": "req_payroll_4821_v1",
+      "sequence": 2,
+      "payload": {
+        "decentro_txn_id": "dec_987654321",
+        "status": "PENDING",
+        "response_code": "E0000",
+        "message": "Payout request accepted and queued for provider routing"
+      }
+    },
+    {
+      "id": "evt_proc_003",
+      "transaction_id": "dec_987654321",
+      "event_type": "PROVIDER_PROCESSING",
+      "source": "BANK_PARTNER_GATEWAY",
+      "status": "PROCESSING",
+      "occurred_at": "2026-08-18T10:31:08.210Z",
+      "received_at": "2026-08-18T10:31:08.240Z",
+      "correlation_id": "bank_rrn_8829104",
+      "sequence": 3,
+      "payload": {
+        "bank_reference": "RRN_8829104",
+        "switch_route": "NPCI_IMPS_FAST",
+        "routing_status": "SENT_TO_BENEFICIARY_SWITCH"
+      }
+    },
+    {
+      "id": "evt_fail_004",
+      "transaction_id": "dec_987654321",
+      "event_type": "PAYOUT_STATUS_CALLBACK",
+      "source": "BANK_PARTNER_CALLBACK",
+      "status": "FAILURE",
+      "occurred_at": "2026-08-18T10:31:14.620Z",
+      "received_at": "2026-08-18T10:31:14.700Z",
+      "correlation_id": "bank_rrn_8829104",
+      "sequence": 4,
+      "payload": {
+        "bank_reference": "RRN_8829104",
+        "provider_error_code": "E1042",
+        "provider_error_message": "BENEFICIARY_BANK_UNAVAILABLE",
+        "npci_response_code": "91",
+        "terminal_state": true
+      }
+    },
+    {
+      "id": "evt_rev_005",
+      "transaction_id": "dec_987654321",
+      "event_type": "LEDGER_REVERSAL",
+      "source": "DECENTRO_LEDGER",
+      "status": "REVERSED",
+      "occurred_at": "2026-08-18T10:31:15.110Z",
+      "received_at": "2026-08-18T10:31:15.130Z",
+      "correlation_id": "rev_payroll_4821",
+      "sequence": 5,
+      "payload": {
+        "reversal_reason": "PROVIDER_FAILURE_REVERSAL",
+        "original_entry_id": "led_deb_001",
+        "amount_restored": 25000.0
+      }
+    }
+  ],
+  "ledger_entries": [
+    {
+      "id": "led_deb_001",
+      "transaction_id": "dec_987654321",
+      "entry_type": "DEBIT",
+      "amount": 25000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T10:31:02.200Z",
+      "reference_id": "payroll_4821",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "OUTFLOW",
+        "note": "Hold/debit for IMPS payout"
+      }
+    },
+    {
+      "id": "led_rev_002",
+      "transaction_id": "dec_987654321",
+      "entry_type": "REVERSAL",
+      "amount": 25000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T10:31:15.110Z",
+      "reference_id": "payroll_4821",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "INFLOW_RESTORE",
+        "original_entry_id": "led_deb_001",
+        "note": "Automatic reversal on terminal failure"
+      }
+    }
+  ]
+}

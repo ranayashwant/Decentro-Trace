@@ -1,0 +1,90 @@
+{
+  "transaction": {
+    "id": "dec_conflict_999",
+    "reference_id": "refund_claim_3002",
+    "amount": 5000.0,
+    "currency": "INR",
+    "transfer_type": "UPI",
+    "beneficiary_id": "ben_upi_9941",
+    "created_at": "2026-08-18T16:20:00Z"
+  },
+  "events": [
+    {
+      "id": "evt_conf_001",
+      "transaction_id": "dec_conflict_999",
+      "event_type": "PAYOUT_INITIATED",
+      "source": "API_CLIENT",
+      "status": "INITIATED",
+      "occurred_at": "2026-08-18T16:20:00.100Z",
+      "received_at": "2026-08-18T16:20:00.120Z",
+      "correlation_id": "req_refund_3002",
+      "sequence": 1,
+      "payload": {
+        "client_id": "client_fintech_corp",
+        "transfer_amount": 5000.0,
+        "purpose": "REFUND"
+      }
+    },
+    {
+      "id": "evt_conf_002",
+      "transaction_id": "dec_conflict_999",
+      "event_type": "PAYOUT_ACCEPTED",
+      "source": "DECENTRO_GATEWAY",
+      "status": "PENDING",
+      "occurred_at": "2026-08-18T16:20:01.000Z",
+      "received_at": "2026-08-18T16:20:01.020Z",
+      "correlation_id": "req_refund_3002",
+      "sequence": 2,
+      "payload": {
+        "decentro_txn_id": "dec_conflict_999",
+        "status": "PENDING"
+      }
+    },
+    {
+      "id": "evt_conf_003_callback_failure",
+      "transaction_id": "dec_conflict_999",
+      "event_type": "PAYOUT_STATUS_CALLBACK",
+      "source": "BANK_PARTNER_CALLBACK",
+      "status": "FAILURE",
+      "occurred_at": "2026-08-18T16:20:10.000Z",
+      "received_at": "2026-08-18T16:20:10.050Z",
+      "correlation_id": "bank_upi_33991",
+      "sequence": 3,
+      "payload": {
+        "provider_error_code": "U30",
+        "provider_error_message": "PAYEE_PSP_TIMEOUT"
+      }
+    },
+    {
+      "id": "evt_conf_004_poll_success",
+      "transaction_id": "dec_conflict_999",
+      "event_type": "STATUS_CHECK",
+      "source": "DECENTRO_STATUS_POLLER",
+      "status": "SUCCESS",
+      "occurred_at": "2026-08-18T16:20:12.000Z",
+      "received_at": "2026-08-18T16:20:12.020Z",
+      "correlation_id": "bank_upi_33991",
+      "sequence": 4,
+      "payload": {
+        "lookup_source": "NPCI_DIRECT_QUERY",
+        "npci_status": "SUCCESS",
+        "response_message": "Transaction credited to payee VPA"
+      }
+    }
+  ],
+  "ledger_entries": [
+    {
+      "id": "led_conf_deb_01",
+      "transaction_id": "dec_conflict_999",
+      "entry_type": "DEBIT",
+      "amount": 5000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T16:20:00.200Z",
+      "reference_id": "refund_claim_3002",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "OUTFLOW"
+      }
+    }
+  ]
+}

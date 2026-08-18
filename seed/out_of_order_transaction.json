@@ -1,0 +1,139 @@
+{
+  "transaction": {
+    "id": "dec_out_of_order_01",
+    "reference_id": "vendor_payout_7712",
+    "amount": 10000.0,
+    "currency": "INR",
+    "transfer_type": "NEFT",
+    "beneficiary_id": "ben_vnd_3321",
+    "created_at": "2026-08-18T14:00:00Z"
+  },
+  "events": [
+    {
+      "id": "evt_ooo_001",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "PAYOUT_INITIATED",
+      "source": "API_CLIENT",
+      "status": "INITIATED",
+      "occurred_at": "2026-08-18T14:00:01.000Z",
+      "received_at": "2026-08-18T14:00:01.050Z",
+      "correlation_id": "req_vendor_7712",
+      "sequence": 1,
+      "payload": {
+        "client_id": "client_fintech_corp",
+        "beneficiary_account": "••••••••9988",
+        "ifsc": "SBIN0004567",
+        "transfer_amount": 10000.0,
+        "purpose": "VENDOR_PAYMENT"
+      }
+    },
+    {
+      "id": "evt_ooo_004_early_arrival",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "PAYOUT_STATUS_CALLBACK",
+      "source": "BANK_PARTNER_CALLBACK",
+      "status": "FAILURE",
+      "occurred_at": "2026-08-18T14:00:15.000Z",
+      "received_at": "2026-08-18T14:00:04.000Z",
+      "correlation_id": "bank_rrn_9901122",
+      "sequence": 4,
+      "payload": {
+        "bank_reference": "RRN_9901122",
+        "provider_error_code": "E3001",
+        "provider_error_message": "INVALID_BENEFICIARY_DETAILS",
+        "terminal_state": true
+      }
+    },
+    {
+      "id": "evt_ooo_002_delayed_arrival",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "PAYOUT_ACCEPTED",
+      "source": "DECENTRO_GATEWAY",
+      "status": "PENDING",
+      "occurred_at": "2026-08-18T14:00:02.500Z",
+      "received_at": "2026-08-18T14:00:07.000Z",
+      "correlation_id": "req_vendor_7712",
+      "sequence": 2,
+      "payload": {
+        "decentro_txn_id": "dec_out_of_order_01",
+        "status": "PENDING",
+        "message": "Accepted for processing"
+      }
+    },
+    {
+      "id": "evt_ooo_003_delayed_arrival",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "PROVIDER_PROCESSING",
+      "source": "BANK_PARTNER_GATEWAY",
+      "status": "PROCESSING",
+      "occurred_at": "2026-08-18T14:00:06.000Z",
+      "received_at": "2026-08-18T14:00:10.000Z",
+      "correlation_id": "bank_rrn_9901122",
+      "sequence": 3,
+      "payload": {
+        "bank_reference": "RRN_9901122",
+        "routing_status": "SENT_TO_CLEARING_HOUSE"
+      }
+    },
+    {
+      "id": "evt_ooo_004_duplicate",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "PAYOUT_STATUS_CALLBACK",
+      "source": "BANK_PARTNER_CALLBACK",
+      "status": "FAILURE",
+      "occurred_at": "2026-08-18T14:00:15.000Z",
+      "received_at": "2026-08-18T14:00:12.000Z",
+      "correlation_id": "bank_rrn_9901122",
+      "sequence": 4,
+      "payload": {
+        "bank_reference": "RRN_9901122",
+        "provider_error_code": "E3001",
+        "provider_error_message": "INVALID_BENEFICIARY_DETAILS",
+        "terminal_state": true
+      }
+    },
+    {
+      "id": "evt_ooo_005",
+      "transaction_id": "dec_out_of_order_01",
+      "event_type": "LEDGER_REVERSAL",
+      "source": "DECENTRO_LEDGER",
+      "status": "REVERSED",
+      "occurred_at": "2026-08-18T14:00:16.000Z",
+      "received_at": "2026-08-18T14:00:16.050Z",
+      "correlation_id": "rev_vendor_7712",
+      "sequence": 5,
+      "payload": {
+        "reversal_reason": "INVALID_BENEFICIARY_REVERSAL",
+        "amount_restored": 10000.0
+      }
+    }
+  ],
+  "ledger_entries": [
+    {
+      "id": "led_ooo_deb_01",
+      "transaction_id": "dec_out_of_order_01",
+      "entry_type": "DEBIT",
+      "amount": 10000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T14:00:01.200Z",
+      "reference_id": "vendor_payout_7712",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "OUTFLOW"
+      }
+    },
+    {
+      "id": "led_ooo_rev_02",
+      "transaction_id": "dec_out_of_order_01",
+      "entry_type": "REVERSAL",
+      "amount": 10000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T14:00:16.000Z",
+      "reference_id": "vendor_payout_7712",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "INFLOW_RESTORE"
+      }
+    }
+  ]
+}

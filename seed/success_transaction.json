@@ -1,0 +1,91 @@
+{
+  "transaction": {
+    "id": "dec_123456789",
+    "reference_id": "merchant_settle_1092",
+    "amount": 75000.0,
+    "currency": "INR",
+    "transfer_type": "RTGS",
+    "beneficiary_id": "ben_mer_5501",
+    "created_at": "2026-08-18T11:15:00Z"
+  },
+  "events": [
+    {
+      "id": "evt_suc_001",
+      "transaction_id": "dec_123456789",
+      "event_type": "PAYOUT_INITIATED",
+      "source": "API_CLIENT",
+      "status": "INITIATED",
+      "occurred_at": "2026-08-18T11:15:00.100Z",
+      "received_at": "2026-08-18T11:15:00.150Z",
+      "correlation_id": "req_settle_1092",
+      "sequence": 1,
+      "payload": {
+        "client_id": "client_fintech_corp",
+        "transfer_amount": 75000.0,
+        "purpose": "MERCHANT_SETTLEMENT"
+      }
+    },
+    {
+      "id": "evt_suc_002",
+      "transaction_id": "dec_123456789",
+      "event_type": "PAYOUT_ACCEPTED",
+      "source": "DECENTRO_GATEWAY",
+      "status": "PENDING",
+      "occurred_at": "2026-08-18T11:15:01.300Z",
+      "received_at": "2026-08-18T11:15:01.320Z",
+      "correlation_id": "req_settle_1092",
+      "sequence": 2,
+      "payload": {
+        "decentro_txn_id": "dec_123456789",
+        "status": "PENDING"
+      }
+    },
+    {
+      "id": "evt_suc_003",
+      "transaction_id": "dec_123456789",
+      "event_type": "PROVIDER_PROCESSING",
+      "source": "BANK_PARTNER_GATEWAY",
+      "status": "PROCESSING",
+      "occurred_at": "2026-08-18T11:15:05.500Z",
+      "received_at": "2026-08-18T11:15:05.550Z",
+      "correlation_id": "bank_rtgs_77610",
+      "sequence": 3,
+      "payload": {
+        "utr": "UTIB26081877610",
+        "routing_status": "PROCESSED_BY_RBI"
+      }
+    },
+    {
+      "id": "evt_suc_004",
+      "transaction_id": "dec_123456789",
+      "event_type": "PAYOUT_STATUS_CALLBACK",
+      "source": "BANK_PARTNER_CALLBACK",
+      "status": "SUCCESS",
+      "occurred_at": "2026-08-18T11:15:12.800Z",
+      "received_at": "2026-08-18T11:15:12.850Z",
+      "correlation_id": "bank_rtgs_77610",
+      "sequence": 4,
+      "payload": {
+        "utr": "UTIB26081877610",
+        "provider_status": "COMPLETED",
+        "terminal_state": true
+      }
+    }
+  ],
+  "ledger_entries": [
+    {
+      "id": "led_suc_deb_01",
+      "transaction_id": "dec_123456789",
+      "entry_type": "DEBIT",
+      "amount": 75000.0,
+      "currency": "INR",
+      "occurred_at": "2026-08-18T11:15:00.200Z",
+      "reference_id": "merchant_settle_1092",
+      "payload": {
+        "account_id": "acc_client_pool",
+        "direction": "OUTFLOW",
+        "settled": true
+      }
+    }
+  ]
+}
