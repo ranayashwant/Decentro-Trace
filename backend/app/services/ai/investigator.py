@@ -4,6 +4,7 @@ from app.schemas.investigation import InvestigationResult
 from app.services.ai.base import AIProvider
 from app.services.ai.mock_provider import MockAIProvider
 from app.services.ai.llm_provider import LLMProvider
+from app.services.ai.gemini_provider import GeminiAIProvider
 from app.core.config import settings
 
 
@@ -18,7 +19,9 @@ class InvestigatorService:
     def __init__(self, provider: Optional[AIProvider] = None):
         if provider:
             self.provider = provider
-        elif settings.AI_PROVIDER == "openai" and settings.OPENAI_API_KEY:
+        elif (settings.AI_PROVIDER == "gemini" or settings.GEMINI_API_KEY) and settings.GEMINI_API_KEY:
+            self.provider = GeminiAIProvider(api_key=settings.GEMINI_API_KEY)
+        elif (settings.AI_PROVIDER == "openai" or settings.OPENAI_API_KEY) and settings.OPENAI_API_KEY:
             self.provider = LLMProvider(api_key=settings.OPENAI_API_KEY)
         else:
             self.provider = MockAIProvider()
