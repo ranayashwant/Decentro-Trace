@@ -91,7 +91,7 @@ def test_successful_lifecycle_reconstruction():
     assert trace.integrity.is_clean is True
 
 
-# Test 2: Failure + reversal (Primary Loom Scenario)
+# Test 2: Failure + reversal (Primary Failure Scenario)
 def test_failure_and_reversal_scenario():
     tx = create_sample_tx("dec_987654321", 25000.0)
     events = [

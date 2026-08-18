@@ -30,7 +30,7 @@ export default function TransactionSelector({
     {
       id: 'dec_987654321',
       label: 'Demo 1: ₹25,000 IMPS Failure + Reversal',
-      badge: 'Primary Loom Scenario',
+      badge: 'Primary Failure Scenario',
       color: 'border-red-500/40 bg-red-950/20 text-red-300 hover:border-red-400',
       icon: AlertOctagon,
     },
