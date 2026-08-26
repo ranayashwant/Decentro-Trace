@@ -3,6 +3,10 @@
 > **AI-Powered Transaction Debugger for Fintech Payout Workflows**  
 > *"The system determines what happened. AI explains why it matters."*
 
+[![Watch Loom Walkthrough](https://img.shields.io/badge/📹_Loom-Video_Walkthrough-5551FF?style=for-the-badge&logo=loom&logoColor=white)](https://www.loom.com/share/c8209a03c8b64edcb9b61cf73f4fed6d)
+
+🎥 **[Watch the Complete System & Code Walkthrough on Loom](https://www.loom.com/share/c8209a03c8b64edcb9b61cf73f4fed6d)**
+
 ---
 
 ## 1. Problem Statement
