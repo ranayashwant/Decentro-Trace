@@ -9,6 +9,14 @@
 
 ---
 
+## 📸 Screenshots
+
+| Transaction Investigation & Deterministic Diagnostics | Canonical Lifecycle Timeline & AI Root Cause Analysis |
+|:---:|:---:|
+| ![Transaction Investigation & Deterministic Diagnosis](docs/screenshots/screenshot_overview.png) | ![Canonical Lifecycle Timeline & AI Analysis](docs/screenshots/screenshot_timeline.png) |
+
+---
+
 ## 1. Problem Statement
 
 In modern fintech platforms (like Decentro), asynchronous payout lifecycles span multiple disconnected systems:
