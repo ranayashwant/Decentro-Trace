@@ -22,7 +22,7 @@ export default function EventPayloadModal({ event, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl rounded-2xl border border-slate-700 bg-[#0F172A] p-6 shadow-2xl">
+      <div className="relative w-full max-w-3xl rounded-2xl border border-slate-700 bg-[#0F172A] p-6 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div className="flex items-center space-x-2">
@@ -42,24 +42,36 @@ export default function EventPayloadModal({ event, onClose }: Props) {
         </div>
 
         {/* Metadata info row */}
-        <div className="my-4 grid grid-cols-2 gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 text-xs sm:grid-cols-4">
-          <div>
-            <span className="text-[10px] uppercase text-slate-500">Event Type</span>
-            <p className="font-mono font-semibold text-slate-200">{event.event_type}</p>
+        <div className="my-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="min-w-0 rounded-xl border border-slate-800/90 bg-slate-900/80 p-3">
+            <span className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+              Event Type
+            </span>
+            <p className="font-mono text-xs font-semibold text-slate-200 break-words">
+              {event.event_type}
+            </p>
           </div>
-          <div>
-            <span className="text-[10px] uppercase text-slate-500">Source</span>
-            <p className="font-mono font-semibold text-[#0080F6]">{event.source}</p>
+          <div className="min-w-0 rounded-xl border border-slate-800/90 bg-slate-900/80 p-3">
+            <span className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+              Source
+            </span>
+            <p className="font-mono text-xs font-semibold text-[#0080F6] break-words">
+              {event.source}
+            </p>
           </div>
-          <div>
-            <span className="text-[10px] uppercase text-slate-500">Occurred At</span>
-            <p className="font-mono text-slate-300 truncate">
+          <div className="min-w-0 rounded-xl border border-slate-800/90 bg-slate-900/80 p-3">
+            <span className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+              Occurred At (UTC)
+            </span>
+            <p className="font-mono text-xs text-slate-300 truncate" title={new Date(event.occurred_at).toISOString()}>
               {new Date(event.occurred_at).toISOString()}
             </p>
           </div>
-          <div>
-            <span className="text-[10px] uppercase text-slate-500">Received At</span>
-            <p className="font-mono text-slate-300 truncate">
+          <div className="min-w-0 rounded-xl border border-slate-800/90 bg-slate-900/80 p-3">
+            <span className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+              Received At (UTC)
+            </span>
+            <p className="font-mono text-xs text-slate-300 truncate" title={new Date(event.received_at).toISOString()}>
               {new Date(event.received_at).toISOString()}
             </p>
           </div>
